@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import Gantt from "./components/Gantt";
+import { getData } from "./data.js";
+import Toolbar from './components/Toolbar';
+import MessageArea from './components/MessageArea';
+import "./styles.css";
+import { useState } from "react";
 
 function App() {
+  const [currentZoom, setZoom] = useState("Days");
+  const [messages, setMessages] = useState([]);
+
+  function addMessage(message) {
+    setMessages(arr => [...arr, message]);
+  }
+
+  function logDataUpdate(type, action, item, id) {
+    let text = item && item.text ? ` (${item.text})` : '';
+    let message = `${type} ${action}: ${id} ${text} `;
+    if (type === 'link' && action !== 'delete') {
+      message += ` ( source: ${item.source}, target: ${item.target} )`;
+    }
+    addMessage(message);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="zoom-bar">
+        <Toolbar
+          zoom={currentZoom}
+          setZoom={setZoom}
+        />
+      </div>
+      <div className="gantt-container">
+        <Gantt
+          tasks={getData()}
+          zoom={currentZoom}
+          onDataUpdated={logDataUpdate}
+        />
+      </div>
+      <MessageArea
+        messages={messages}
+      />
     </div>
   );
 }
