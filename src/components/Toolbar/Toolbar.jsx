@@ -1,3 +1,5 @@
+import './Toolbar.css';
+
 export default function Toolbar({ zoom, setZoom }) {
     const zoomRadios = ['Hours', 'Days', 'Months'].map((value) => {
         const isActive = zoom === value;

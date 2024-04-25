@@ -1,17 +1,12 @@
-import Gantt from "./components/Gantt";
+import Gantt from "./components/Gantt/Gantt";
 import { getData } from "./data.js";
-import Toolbar from './components/Toolbar';
-import MessageArea from './components/MessageArea';
+import Toolbar from './components/Toolbar/Toolbar';
 import "./styles.css";
 import { useState } from "react";
 
 function App() {
   const [currentZoom, setZoom] = useState("Days");
-  const [messages, setMessages] = useState([]);
 
-  function addMessage(message) {
-    setMessages(arr => [...arr, message]);
-  }
 
   function logDataUpdate(type, action, item, id) {
     let text = item && item.text ? ` (${item.text})` : '';
@@ -19,7 +14,6 @@ function App() {
     if (type === 'link' && action !== 'delete') {
       message += ` ( source: ${item.source}, target: ${item.target} )`;
     }
-    addMessage(message);
   }
 
   return (
@@ -37,9 +31,6 @@ function App() {
           onDataUpdated={logDataUpdate}
         />
       </div>
-      <MessageArea
-        messages={messages}
-      />
     </div>
   );
 }
