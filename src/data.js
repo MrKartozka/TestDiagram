@@ -18,6 +18,7 @@ export function getData() {
                 order: 10,
                 progress: 0.6,
                 parent: "10",
+                cost: 5000,
             },
             {
                 id: "2",
@@ -27,6 +28,7 @@ export function getData() {
                 order: 20,
                 progress: 0.6,
                 parent: "10",
+                cost: 3000
             },
         ],
         links: [{ id: 1, source: 1, target: 2, type: "0" }],

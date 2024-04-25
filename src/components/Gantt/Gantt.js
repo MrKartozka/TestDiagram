@@ -46,6 +46,13 @@ export default function GanttView({ tasks, zoom, onDataUpdated }) {
         gantt.ext.zoom.setLevel(value);
     };
 
+    gantt.config.lightbox.sections = [
+        { name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
+        { name: "cost", height: 22, map_to: "cost", type: "textarea" },
+        { name: "time", type: "duration", map_to: "auto" },
+        // Добавить новые секции для новых данных
+    ];
+
     useEffect(() => {
         try {
             gantt.init(container.current);
