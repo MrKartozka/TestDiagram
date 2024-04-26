@@ -5,7 +5,3 @@ body,
     padding: 0;
     margin: 0;
 }
-
-.gantt-container {
-    height: calc(100vh - 50px - 200px);
-}
