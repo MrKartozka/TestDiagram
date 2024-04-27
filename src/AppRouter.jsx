@@ -1,15 +1,14 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import MainScreen from "./App";
-import Diagram from "./components/Diagram/Diagram";
-import Resources from "./Resources/Resources";
+import GanttView from "./GanttView/GanttView";
+import App from "./App";
 
 function AppRouter() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<MainScreen />} />
-				<Route path="/Diagram" element={<Diagram />} />
-				<Route path="/Resources" element={<Resources />} />
+				<Route path="/" element={<App />} />
+				<Route path="/ganttview" element={<GanttView />} />
+				{/* <Route path="/resources" element={<Resources />} /> */}
 			</Routes>
 		</Router>
 	);

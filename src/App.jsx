@@ -1,36 +1,32 @@
-import Gantt from "./components/Gantt/Gantt";
-import { getData } from "./data.js";
-import Toolbar from './components/Toolbar/Toolbar';
-import "./styles.css";
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import SideNav from "./components/SideNav/SideNav";
+import NavigationBar from "./components/NavigationBar/NavigationBar";
+import Status from "./components/Status/Status";
+import Clock from "./components/Clock/Clock";
+import ButtonsMenu from "./ButtonsMenu/ButtonsMenu";
 
 function App() {
-  const [currentZoom, setZoom] = useState("Days");
-
-
-  function logDataUpdate(type, action, item, id) {
-    let text = item && item.text ? ` (${item.text})` : '';
-    let message = `${type} ${action}: ${id} ${text} `;
-    if (type === 'link' && action !== 'delete') {
-      message += ` ( source: ${item.source}, target: ${item.target} )`;
-    }
-  }
+  const onlineUsers = 50;
+  const totalUsers = 55;
+  const completedTasks = 10;
+  const totalTasks = 14;
+  const completedResources = 340;
+  const totalResources = 345;
 
   return (
-    <div>
-      <div className="zoom-bar">
-        <Toolbar
-          zoom={currentZoom}
-          setZoom={setZoom}
-        />
-      </div>
-      <div className="gantt-container">
-        <Gantt
-          tasks={getData()}
-          zoom={currentZoom}
-          onDataUpdated={logDataUpdate}
-        />
-      </div>
+    <div className="home-screen">
+      <NavigationBar />
+      <SideNav />
+      <ButtonsMenu />
+      <Clock />
+      <Status
+        onlineUsers={onlineUsers}
+        totalUsers={totalUsers}
+        completedTasks={completedTasks}
+        totalTasks={totalTasks}
+        completedResources={completedResources}
+        totalResources={totalResources}
+      />
     </div>
   );
 }
