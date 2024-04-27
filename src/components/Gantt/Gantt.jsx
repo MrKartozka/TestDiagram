@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { gantt } from "dhtmlx-gantt";
-import moment from "moment";
 
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
 
@@ -49,12 +48,19 @@ export default function Gantt({ tasks, zoom }) {
 			single_date: true,
 			readonly: true,
 		},
+		{
+			name: "cost",
+			height: 30,
+			type: "textarea",
+			map_to: "cost",
+		},
 	];
 
 	gantt.locale.labels.section_product = "Product";
 	gantt.locale.labels.section_startDate = "Start date";
 	gantt.locale.labels.section_endDate = "End date";
 	gantt.locale.labels.section_codeOperation = "codeOperation";
+	gantt.locale.labels.section_cost = "cost";
 
 	gantt.config.buttons_left = []; // Удалите кнопки с левой стороны
 	gantt.config.buttons_right = ["gantt_cancel_btn"]; // Добавляет стандартную кнопку закрытия справа
@@ -65,7 +71,35 @@ export default function Gantt({ tasks, zoom }) {
 		{ name: "duration", label: "Duration", align: "center" },
 		// Removes the '+' button by not including the 'add' column.
 	];
-
+	gantt.attachEvent('onBeforeLightbox', function (task_id) {
+		const task = gantt.getTask(task_id);
+		switch (task.taskType) {
+			case 'order':
+				gantt.config.lightbox.sections = [
+					{ name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
+					{ name: "product", height: 22, map_to: "product", type: "textarea" },
+					{ name: "cost", height: 22, map_to: "cost", type: "textarea" }
+				];
+				break;
+			case 'operation':
+				gantt.config.lightbox.sections = [
+					{ name: "codeOperation", height: 30, type: "textarea", map_to: "codeOperation" }
+				];
+				break;
+			case 'resources':
+				gantt.config.lightbox.sections = [
+					// Добавьте здесь секции для ресурсов
+				];
+				break;
+			default:
+				gantt.config.lightbox.sections = [
+					{ name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
+					{ name: "time", type: "duration", map_to: "auto", label: "Time" }
+				];
+		}
+		gantt.resetLightbox();
+		return true; // Возвращаем true, чтобы lightbox открылся
+	})
 	const container = useRef(null);
 
 	const initZoom = () => {
