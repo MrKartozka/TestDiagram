@@ -13,7 +13,7 @@ function SideNav() {
 				alt="notif-icon"
 			/>
 			<img src="mail-small.png" className="mail-icons" alt="mail-icon" />
-			{location.pathname === "/diagram" && (
+			{location.pathname === "/ganttview" && (
 				<div className="side-nav--items">
 					<div className="side-nav__item">
 						<img
