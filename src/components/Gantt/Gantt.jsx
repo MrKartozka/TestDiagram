@@ -49,7 +49,6 @@ export default function Gantt({ tasks, zoom }) {
 	gantt.locale.labels.section_rank = "Разряд";
 	gantt.locale.labels.section_currentStatus = "Текущий статус";
 
-
 	gantt.config.buttons_left = []; // Удалите кнопки с левой стороны
 	gantt.config.buttons_right = ["gantt_cancel_btn"]; // Добавляет стандартную кнопку закрытия справа
 
@@ -59,70 +58,269 @@ export default function Gantt({ tasks, zoom }) {
 		{ name: "duration", label: "Duration", align: "center" },
 		// Removes the '+' button by not including the 'add' column.
 	];
-	gantt.attachEvent('onBeforeLightbox', function (task_id) {
+	gantt.attachEvent("onBeforeLightbox", function (task_id) {
 		const task = gantt.getTask(task_id);
 		switch (task.taskType) {
-			case 'order':
+			case "order":
 				gantt.config.lightbox.sections = [
-					{ name: "nomenclature", height: 21, map_to: "nomenclature", type: "textarea" },
-					{ name: "product", height: 21, map_to: "product", type: "textarea" },
-					{ name: "quantity", height: 21, map_to: "quantity", type: "textarea" },
-					{ name: "laborIntensity", height: 21, map_to: "laborIntensity", type: "textarea" },
-					{ name: "customer", height: 21, map_to: "customer", type: "textarea" },
-					{ name: "productivity", height: 21, map_to: "productivity", type: "textarea" },
-					{ name: "cost", height: 21, map_to: "cost", type: "textarea" },
-					{ name: "priority", height: 21, map_to: "priority", type: "textarea" },
-					{ name: "planDate", height: 21, map_to: "plan_date", type: "textarea" },
-					{ name: "actualDate", height: 21, map_to: "actual_date", type: "textarea" },
-					{ name: "deviation", height: 21, map_to: "deviation", type: "textarea" },
-					{ name: "blank", height: 21, map_to: "blank", type: "textarea", readonly: true },
+					{
+						name: "nomenclature",
+						height: 21,
+						map_to: "nomenclature",
+						type: "textarea",
+					},
+					{
+						name: "product",
+						height: 21,
+						map_to: "product",
+						type: "textarea",
+					},
+					{
+						name: "quantity",
+						height: 21,
+						map_to: "quantity",
+						type: "textarea",
+					},
+					{
+						name: "laborIntensity",
+						height: 21,
+						map_to: "laborIntensity",
+						type: "textarea",
+					},
+					{
+						name: "customer",
+						height: 21,
+						map_to: "customer",
+						type: "textarea",
+					},
+					{
+						name: "productivity",
+						height: 21,
+						map_to: "productivity",
+						type: "textarea",
+					},
+					{
+						name: "cost",
+						height: 21,
+						map_to: "cost",
+						type: "textarea",
+					},
+					{
+						name: "priority",
+						height: 21,
+						map_to: "priority",
+						type: "textarea",
+					},
+					{
+						name: "planDate",
+						height: 21,
+						map_to: "plan_date",
+						type: "textarea",
+					},
+					{
+						name: "actualDate",
+						height: 21,
+						map_to: "actual_date",
+						type: "textarea",
+					},
+					{
+						name: "deviation",
+						height: 21,
+						map_to: "deviation",
+						type: "textarea",
+					},
+					{
+						name: "blank",
+						height: 21,
+						map_to: "blank",
+						type: "textarea",
+						readonly: true,
+					},
 				];
 				break;
-			case 'operation':
+			case "operation":
 				gantt.config.lightbox.sections = [
-					{ name: "number", height: 21, map_to: "number", type: "textarea" },
-					{ name: "name", height: 21, map_to: "name", type: "textarea" },
-					{ name: "codeOperation", height: 30, map_to: "codeOperation", type: "textarea", },
-					{ name: "laborIntensity", height: 21, map_to: "laborIntensity", type: "textarea" },
-					{ name: "gild", height: 21, map_to: "gild", type: "textarea" },
-					{ name: "technicalProcess", height: 21, map_to: "technicalProcess", type: "textarea" },
-					{ name: "cost", height: 21, map_to: "cost", type: "textarea" },
-					{ name: "quantity", height: 21, map_to: "quantity", type: "textarea" },
-					{ name: "planDate", height: 21, map_to: "plan_date", type: "textarea" },
-					{ name: "actualDate", height: 21, map_to: "actual_date", type: "textarea" },
-					{ name: "deviation", height: 21, map_to: "deviation", type: "textarea" },
-					{ name: "outfit", height: 21, map_to: "outfit", type: "textarea" },
-
-
+					{
+						name: "number",
+						height: 21,
+						map_to: "number",
+						type: "textarea",
+					},
+					{
+						name: "name",
+						height: 21,
+						map_to: "name",
+						type: "textarea",
+					},
+					{
+						name: "codeOperation",
+						height: 30,
+						map_to: "codeOperation",
+						type: "textarea",
+					},
+					{
+						name: "laborIntensity",
+						height: 21,
+						map_to: "laborIntensity",
+						type: "textarea",
+					},
+					{
+						name: "gild",
+						height: 21,
+						map_to: "gild",
+						type: "textarea",
+					},
+					{
+						name: "technicalProcess",
+						height: 21,
+						map_to: "technicalProcess",
+						type: "textarea",
+					},
+					{
+						name: "cost",
+						height: 21,
+						map_to: "cost",
+						type: "textarea",
+					},
+					{
+						name: "quantity",
+						height: 21,
+						map_to: "quantity",
+						type: "textarea",
+					},
+					{
+						name: "planDate",
+						height: 21,
+						map_to: "plan_date",
+						type: "textarea",
+					},
+					{
+						name: "actualDate",
+						height: 21,
+						map_to: "actual_date",
+						type: "textarea",
+					},
+					{
+						name: "deviation",
+						height: 21,
+						map_to: "deviation",
+						type: "textarea",
+					},
+					{
+						name: "outfit",
+						height: 21,
+						map_to: "outfit",
+						type: "textarea",
+					},
 				];
 				break;
-			case 'resources':
+			case "resources":
 				gantt.config.lightbox.sections = [
-					{ name: "text", height: 21, map_to: "text", type: "textarea" },
-					{ name: "description", height: 21, map_to: "description", type: "textarea" },
-					{ name: "typical", height: 21, map_to: "typical", type: "textarea" },
-					{ name: "gild", height: 21, map_to: "gild", type: "textarea" },
-					{ name: "system", height: 21, map_to: "system", type: "textarea" },
-					{ name: "nowstatus", height: 21, map_to: "nowstatus", type: "textarea" },
-					{ name: "uin", height: 21, map_to: "uin", type: "textarea" },
+					{
+						name: "text",
+						height: 21,
+						map_to: "text",
+						type: "textarea",
+					},
+					{
+						name: "description",
+						height: 21,
+						map_to: "description",
+						type: "textarea",
+					},
+					{
+						name: "typical",
+						height: 21,
+						map_to: "typical",
+						type: "textarea",
+					},
+					{
+						name: "gild",
+						height: 21,
+						map_to: "gild",
+						type: "textarea",
+					},
+					{
+						name: "system",
+						height: 21,
+						map_to: "system",
+						type: "textarea",
+					},
+					{
+						name: "nowstatus",
+						height: 21,
+						map_to: "nowstatus",
+						type: "textarea",
+					},
+					{
+						name: "uin",
+						height: 21,
+						map_to: "uin",
+						type: "textarea",
+					},
 				];
 				break;
-			case 'worker':
+			case "worker":
 				gantt.config.lightbox.sections = [
-					{ name: "surname", height: 21, map_to: "surname", type: "textarea" },
-					{ name: "name", height: 21, map_to: "name", type: "textarea" },
-					{ name: "secSurname", height: 21, map_to: "secSurname", type: "textarea" },
-					{ name: "profession", height: 21, map_to: "profession", type: "textarea" },
-					{ name: "rank", height: 21, map_to: "rank", type: "textarea" },
-					{ name: "gild", height: 21, map_to: "gild", type: "textarea" },
-					{ name: "uin", height: 21, map_to: "uin", type: "textarea" },
-					{ name: "currentStatus", height: 21, map_to: "current_status", type: "textarea" },
-
+					{
+						name: "surname",
+						height: 21,
+						map_to: "surname",
+						type: "textarea",
+					},
+					{
+						name: "name",
+						height: 21,
+						map_to: "name",
+						type: "textarea",
+					},
+					{
+						name: "secSurname",
+						height: 21,
+						map_to: "secSurname",
+						type: "textarea",
+					},
+					{
+						name: "profession",
+						height: 21,
+						map_to: "profession",
+						type: "textarea",
+					},
+					{
+						name: "rank",
+						height: 21,
+						map_to: "rank",
+						type: "textarea",
+					},
+					{
+						name: "gild",
+						height: 21,
+						map_to: "gild",
+						type: "textarea",
+					},
+					{
+						name: "uin",
+						height: 21,
+						map_to: "uin",
+						type: "textarea",
+					},
+					{
+						name: "currentStatus",
+						height: 21,
+						map_to: "current_status",
+						type: "textarea",
+					},
 				];
 				break;
 			default:
 				gantt.config.lightbox.sections = [
-					{ name: "description", height: 38, map_to: "description", type: "textarea", focus: true },
+					{
+						name: "description",
+						height: 38,
+						map_to: "description",
+						type: "textarea",
+						focus: true,
+					},
 					{
 						name: "startDate",
 						height: 30,
@@ -145,7 +343,7 @@ export default function Gantt({ tasks, zoom }) {
 		}
 		gantt.resetLightbox();
 		return true; // Возвращаем true, чтобы lightbox открылся
-	})
+	});
 	const container = useRef(null);
 
 	const initZoom = () => {
@@ -197,8 +395,11 @@ export default function Gantt({ tasks, zoom }) {
 		} catch (error) {
 			console.error("Failed to initialize Gantt chart: ", error);
 		}
-	}, [zoom, tasks]);
-	// Add tasks to dependency array if tasks data can change over time
+		return () => {
+			gantt.clearAll(); // Это очищает Gantt состояние при отключении компонента
+		};
+	}, [zoom, tasks, gantt, container]);
+	// Добавлять сюда задачи в массив зависимостей, если данные задач могут изменяться с течением времени
 
 	return (
 		<div ref={container} style={{ width: "100%", height: "500px" }}></div>

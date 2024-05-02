@@ -8,6 +8,7 @@ function NavigationBar() {
 	const handleAvatarClick = () => {
 		setIsDropdownOpen(!isDropdownOpen);
 	};
+
 	return (
 		<div className="top-nav">
 			<div className="user-profile" onClick={handleAvatarClick}>
