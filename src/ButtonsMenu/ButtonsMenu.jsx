@@ -11,7 +11,7 @@ function ButtonsMenu() {
 						<img src="/orders.png" alt="Orders" />
 						<span>Orders</span>
 					</Link>
-					<Link to="/Resources" className="resource-button">
+					<Link to="/resources" className="resource-button">
 						<img src="/resources.png" alt="Resources" />
 						<span>Resources</span>
 					</Link>
