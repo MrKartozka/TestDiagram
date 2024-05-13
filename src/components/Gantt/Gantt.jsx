@@ -4,6 +4,9 @@ import { gantt } from "dhtmlx-gantt";
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
 
 export default function Gantt({ tasks, zoom }) {
+	const ganttContainer = useRef(null);
+	gantt.i18n.setLocale("ru");
+
 	gantt.config.lightbox_additional_height = 150;
 	gantt.templates.lightbox_header = function () {
 		let headerStyle = "text-align:center; cursor:default;";
@@ -53,11 +56,18 @@ export default function Gantt({ tasks, zoom }) {
 	gantt.config.buttons_right = ["gantt_cancel_btn"]; // Добавляет стандартную кнопку закрытия справа
 
 	gantt.config.columns = [
-		{ name: "text", label: "Task name", tree: true, width: "*" },
-		{ name: "start_date", label: "Start time", align: "center" },
-		{ name: "duration", label: "Duration", align: "center" },
+		{
+			name: "text",
+			label: "Номер заказа/Ресурс",
+			tree: true,
+			width: "*",
+			align: "center",
+		},
+		{ name: "deviation", label: "Отклонение", align: "center" },
+		{ name: "priority", label: "Приоритет", align: "center" },
 		// Removes the '+' button by not including the 'add' column.
 	];
+
 	gantt.attachEvent("onBeforeLightbox", function (task_id) {
 		const task = gantt.getTask(task_id);
 		switch (task.taskType) {
@@ -388,20 +398,24 @@ export default function Gantt({ tasks, zoom }) {
 	};
 
 	useEffect(() => {
-		try {
-			gantt.init(container.current);
-			gantt.parse(tasks);
-			setZoom(zoom);
-		} catch (error) {
-			console.error("Failed to initialize Gantt chart: ", error);
+		if (!tasks || !ganttContainer.current) {
+			console.error("Tasks data or Gantt container is not ready");
+			return;
 		}
+
+		gantt.init(ganttContainer.current);
+		gantt.parse(tasks);
+		setZoom(zoom);
+
 		return () => {
-			gantt.clearAll(); // Это очищает Gantt состояние при отключении компонента
+			gantt.clearAll();
 		};
-	}, [zoom, tasks, gantt, container]);
-	// Добавлять сюда задачи в массив зависимостей, если данные задач могут изменяться с течением времени
+	}, [tasks, zoom]);
 
 	return (
-		<div ref={container} style={{ width: "100%", height: "500px" }}></div>
-	); // Ensure a minimum height is set
+		<div
+			ref={ganttContainer}
+			style={{ width: "100%", height: "500px" }}
+		></div>
+	);
 }

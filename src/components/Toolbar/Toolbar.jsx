@@ -1,7 +1,14 @@
 import "./Toolbar.css";
 
 export default function Toolbar({ zoom, setZoom }) {
-	const zoomRadios = ["Hours", "Days", "Months"].map((value) => {
+	// Локализация меток зума
+	const zoomOptions = [
+		{ label: "Часы", value: "Hours" },
+		{ label: "Дни", value: "Days" },
+		{ label: "Месяцы", value: "Months" },
+	];
+
+	const zoomRadios = zoomOptions.map(({ label, value }) => {
 		const isActive = zoom === value;
 		return (
 			<label
@@ -13,17 +20,17 @@ export default function Toolbar({ zoom, setZoom }) {
 				<input
 					type="radio"
 					checked={isActive}
-					onChange={(e) => setZoom(e.target.value)}
+					onChange={() => setZoom(value)}
 					value={value}
 				/>
-				{value}
+				{label} {/* Отображаем локализованную метку */}
 			</label>
 		);
 	});
 
 	return (
 		<div className="tool-bar">
-			<b>Zoom: </b>
+			<b>Сортировка: </b>
 			{zoomRadios}
 		</div>
 	);

@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.gantt_tree_icon.gantt_folder_open,
+.gantt_tree_icon.gantt_folder_closed,
+.gantt_tree_icon.gantt_file {
+  display: none;
+}
+
+.gantt_grid_scale .gantt_grid_head_cell,
+.gantt_task .gantt_task_scale .gantt_scale_cell {
+  color: black !important;
+}
