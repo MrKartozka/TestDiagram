@@ -28,12 +28,20 @@ function GanttView() {
 			<div className="gantt-view">
 				<div className="zoom-bar">
 					<Toolbar zoom={currentZoom} setZoom={setZoom} />
-					<button onClick={() => handleViewChange("Gantt")}>
-						Гант
-					</button>
-					<button onClick={() => handleViewChange("Table")}>
-						Таблица
-					</button>
+					<div className="bar-buttons">
+						<button
+							className="bar-buttons-btn"
+							onClick={() => handleViewChange("Gantt")}
+						>
+							Гант
+						</button>
+						<button
+							className="bar-buttons-btn"
+							onClick={() => handleViewChange("Table")}
+						>
+							Таблица
+						</button>
+					</div>
 				</div>
 				<div className="gantt-container">
 					{currentView === "Gantt" ? (
