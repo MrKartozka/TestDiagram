@@ -8,8 +8,9 @@ export default function Toolbar({ zoom, setZoom }) {
 		{ label: "Месяцы", value: "Months" },
 	];
 
+	// Создаем радио-кнопки для выбора уровня зума
 	const zoomRadios = zoomOptions.map(({ label, value }) => {
-		const isActive = zoom === value;
+		const isActive = zoom === value; // Проверяем, активна ли текущая опция
 		return (
 			<label
 				key={value}
@@ -19,8 +20,8 @@ export default function Toolbar({ zoom, setZoom }) {
 			>
 				<input
 					type="radio"
-					checked={isActive}
-					onChange={() => setZoom(value)}
+					checked={isActive} // Устанавливаем, активна ли кнопка
+					onChange={() => setZoom(value)} // Обработчик изменения выбора
 					value={value}
 				/>
 				{label} {/* Отображаем локализованную метку */}
@@ -28,10 +29,11 @@ export default function Toolbar({ zoom, setZoom }) {
 		);
 	});
 
+	// Возвращаем JSX для отображения тулбара
 	return (
 		<div className="tool-bar">
 			<b>Сортировка: </b>
-			{zoomRadios}
+			{zoomRadios} {/* Отображаем радио-кнопки */}
 		</div>
 	);
 }

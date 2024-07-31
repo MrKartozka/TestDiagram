@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { gantt } from "dhtmlx-gantt";
-
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
 
 export default function Gantt({ tasks, zoom }) {
+	// Создаем ссылку на контейнер Gantt диаграммы
 	const ganttContainer = useRef(null);
+
+	// Устанавливаем локализацию на русский язык
 	gantt.i18n.setLocale("ru");
 
+	// Настройки конфигурации lightbox
 	gantt.config.lightbox_additional_height = 150;
 	gantt.templates.lightbox_header = function () {
 		let headerStyle = "text-align:center; cursor:default;";
@@ -55,6 +58,7 @@ export default function Gantt({ tasks, zoom }) {
 	gantt.config.buttons_left = []; // Удалите кнопки с левой стороны
 	gantt.config.buttons_right = ["gantt_cancel_btn"]; // Добавляет стандартную кнопку закрытия справа
 
+	// Настройка колонок таблицы
 	gantt.config.columns = [
 		{
 			name: "text",
@@ -68,6 +72,7 @@ export default function Gantt({ tasks, zoom }) {
 		// Removes the '+' button by not including the 'add' column.
 	];
 
+	// Обработка события перед открытием lightbox
 	gantt.attachEvent("onBeforeLightbox", function (task_id) {
 		const task = gantt.getTask(task_id);
 		switch (task.taskType) {
@@ -354,8 +359,10 @@ export default function Gantt({ tasks, zoom }) {
 		gantt.resetLightbox();
 		return true; // Возвращаем true, чтобы lightbox открылся
 	});
+	// Создаем ссылку на контейнер
 	const container = useRef(null);
 
+	// Функция для инициализации зума
 	const initZoom = () => {
 		gantt.ext.zoom.init({
 			levels: [
@@ -390,6 +397,7 @@ export default function Gantt({ tasks, zoom }) {
 		});
 	};
 
+	// Функция для установки уровня зума
 	const setZoom = (value) => {
 		if (!gantt.ext.zoom.getLevels()) {
 			initZoom();
@@ -397,21 +405,23 @@ export default function Gantt({ tasks, zoom }) {
 		gantt.ext.zoom.setLevel(value);
 	};
 
+	// Хук useEffect для инициализации и обновления Gantt диаграммы
 	useEffect(() => {
 		if (!tasks || !ganttContainer.current) {
 			console.error("Tasks data or Gantt container is not ready");
 			return;
 		}
 
-		gantt.init(ganttContainer.current);
-		gantt.parse(tasks);
-		setZoom(zoom);
+		gantt.init(ganttContainer.current); // Инициализация Gantt диаграммы
+		gantt.parse(tasks); // Парсинг задач
+		setZoom(zoom); // Установка зума
 
 		return () => {
-			gantt.clearAll();
+			gantt.clearAll(); // Очистка диаграммы при размонтировании компонента
 		};
 	}, [tasks, zoom]);
 
+	// Возвращаем JSX для отображения Gantt диаграммы
 	return (
 		<div
 			ref={ganttContainer}
